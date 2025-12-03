@@ -50,7 +50,7 @@ const fillData = () => {
                 </td>
             </tr> 
             
-            <tr data-aos="zoom-in-left"> 
+            <!-- <tr data-aos="zoom-in-left"> 
                        
                         <td class = "referenceTitleName">
                             <div>
@@ -69,7 +69,7 @@ const fillData = () => {
                            
                         </td>
                         <td class="imgCol"><img src="${image2}" class="rImg1"></td>
-                    </tr>`)
+                    </tr> -->`)
   );
   referenceTable.innerHTML = output;
 };

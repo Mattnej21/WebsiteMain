@@ -1,16 +1,21 @@
 /* ---- particles.js config ---- */
 
+// Determine initial particle color based on theme
+const htmlElement = document.documentElement;
+const lightMode = htmlElement.getAttribute("light-mode");
+const particleColor = lightMode === "light" ? "#000000" : "#FFFFFF";
+
  particlesJS("particles-js", {
    particles: {
      number: {
        value: 10,
        density: {
          enable: true,
-         value_area: 800,
+         value_area: 400,
        },
      },
      color: {
-       value: ["#2EB67D", "#ECB22E", "#E01E5B", "#36C5F0"],
+       value: particleColor,
      },
      shape: {
        type: "circle",
@@ -29,7 +34,7 @@
      },
 
      opacity: {
-       value: .8,
+       value: .1,
        random: false,
        anim: {
          enable: false,
@@ -39,7 +44,7 @@
        },
      },
      size: {
-       value: 7,
+       value: 3,
        random: true,
        anim: {
          enable: false,
@@ -62,11 +67,11 @@
        random: false,
        straight: false,
        out_mode: "out",
-       bounce: false,
+       bounce: true,
        attract: {
-         enable: false,
-         rotateX: 600,
-         rotateY: 1200,
+         enable: true,
+         rotateX: 2000,
+         rotateY: 4000,
        },
      },
    },
@@ -175,3 +180,22 @@
      }
    });
  }
+
+// Update particle color when theme changes
+const observer = new MutationObserver((mutations) => {
+  mutations.forEach((mutation) => {
+    if (mutation.attributeName === "light-mode") {
+      const newLightMode = htmlElement.getAttribute("light-mode");
+      const newColor = newLightMode === "light" ? "#000000" : "#FFFFFF";
+      if (window.pJSDom && window.pJSDom[0]) {
+        window.pJSDom[0].pJS.particles.color.value = newColor;
+        // Reload particles with new color
+        window.pJSDom[0].pJS.particles.array.forEach(p => {
+          p.color.value = newColor;
+        });
+      }
+    }
+  });
+});
+
+observer.observe(htmlElement, { attributes: true });
