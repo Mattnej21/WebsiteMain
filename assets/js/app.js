@@ -303,7 +303,9 @@ function vanish() {
 }
 $(function () {
   $("a.nav-link").each(function () {
-    if ($(this).prop("href") == window.location.href) {
+    var linkHref = new URL($(this).prop("href"), window.location.origin).href;
+    var currentHref = window.location.href;
+    if (linkHref === currentHref) {
       $(this).addClass("current-link");
     }
   });
@@ -317,7 +319,9 @@ $(document).ready(function () {
       $(this).removeClass("current-link");
     },
     function () {
-      if ($(this).prop("href") == window.location.href) {
+      var linkHref = new URL($(this).prop("href"), window.location.origin).href;
+      var currentHref = window.location.href;
+      if (linkHref === currentHref) {
         $(this).addClass("current-link");
       }
     }
